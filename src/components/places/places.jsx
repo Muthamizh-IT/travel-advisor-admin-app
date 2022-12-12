@@ -42,7 +42,7 @@ const Places = () => {
     // fetch places
 
     const FetchPlaces = async () => {
-        const values = await Axios.get(` https://tavel-advisor.herokuapp.com/v1/tourist/fetch/tourist/places?page=${page}`)
+        const values = await Axios.get(`https://travellor-app.onrender.com/v1/tourist/fetch/tourist/places?page=${page}`)
         if (values.status === 200) {
             setLoading(false)
             setPlaces(values.data.values)
@@ -55,7 +55,7 @@ const Places = () => {
         setPage(page - 1)
         page = page - 1
         setLoading(true)
-        const values = await Axios.get(` https://tavel-advisor.herokuapp.com/v1/tourist/fetch/tourist/places?page=${page}`)
+        const values = await Axios.get(` https://travellor-app.onrender.com/v1/tourist/fetch/tourist/places?page=${page}`)
         if (values.status === 200) {
             setLoading(false)
             setPlaces(values.data.values)
@@ -67,7 +67,7 @@ const Places = () => {
     // Fetch All States
 
     const fetchStates = async () => {
-        let values = await Axios.get(` https://tavel-advisor.herokuapp.com/v1/state`)
+        let values = await Axios.get(` https://travellor-app.onrender.com/v1/state`)
         if (values.status === 200) {
             setState(values.data)
         }
