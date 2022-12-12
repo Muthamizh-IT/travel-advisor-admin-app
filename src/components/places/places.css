@@ -1,0 +1,20 @@
+.editplace {
+  max-width: 800px;
+  margin: auto;
+  border: 2px solid rgb(214, 189, 189);
+}
+.editplace h2 {
+  text-align: center;
+  color: rgb(92, 92, 228);
+}
+
+.form_edit{
+    margin-left: 25%;
+}
+
+.form_edit input{
+    margin-top: 10px;
+}
+.form_edit select{
+    margin-top: 10px;
+}

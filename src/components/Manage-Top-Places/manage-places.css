@@ -1,0 +1,7 @@
+.top-cards {
+  display: flex;
+}
+.top-cards .MuiButtonBase-root {
+  padding-right: 20px !important;
+  padding-left: 10px !important;
+}

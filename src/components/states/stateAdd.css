@@ -1,0 +1,24 @@
+.boxes {
+  max-width: 500px;
+  margin: auto;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.table-State {
+  max-width: 70%;
+  margin: auto;
+}
+.MuiPaper-root {
+  width: 558px;
+}
+.available_State h1 {
+  text-align: center;
+}
+
+.stateform h1 {
+  text-align: center;
+}
+.pagination{
+  margin-top: 1.5%;
+  max-width: 70%;
+  float: right;
+}
