@@ -42,6 +42,7 @@ const AddStates = () => {
     time: "",
     food: "",
   });
+  const [editData, setEditdata] = useState({})
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -79,6 +80,12 @@ const AddStates = () => {
   const OnSubmitState = (values) => {
     console.log(values);
   };
+
+  const OnchangeEdit = async (e) => {
+    setEditdata({ ...editData, [e.target.name]: e.target.value })
+  }
+  console.log(editData)
+
   return (
     <div>
       <NavBar />
@@ -242,6 +249,8 @@ const AddStates = () => {
                 label="State Name"
                 style={{ width: "100%", marginTop: "10px", maxWidth: "96%" }}
                 size="sm"
+                name="name"
+                onChange={(e) => OnchangeEdit(e)}
               />
               <br />
               <FormControl sx={{ m: 1, minWidth: 475 }}>
@@ -252,6 +261,7 @@ const AddStates = () => {
                 <Select
                   labelId="demo-simple-select-helper-label"
                   id="demo-simple-select-helper"
+                  name="locationId"
                   style={{
                     width: "100%",
                     marginTop: "1px",
@@ -259,9 +269,7 @@ const AddStates = () => {
                     marginLeft: "-10px",
                   }}
                   label="Age"
-                  onChange={(e) => {
-                    console.log(e.target.value);
-                  }}
+                  onChange={(e) => OnchangeEdit(e)}
                 >
                   {locate.map((e) => (
                     <MenuItem value={e._id}>{e.Name}</MenuItem>
@@ -272,17 +280,21 @@ const AddStates = () => {
               <TextField
                 id="demo-helper-text-misaligned"
                 label="Enter Capital"
+                name="capital"
                 style={{ width: "100%", marginTop: "10px", maxWidth: "96%" }}
                 size="sm"
+                onChange={(e) => OnchangeEdit(e)}
               />
               <br />
               <textarea
                 rows="4"
                 cols="100"
+                name="about"
                 style={{
                   maxWidth: "465px",
                   marginTop: "10px",
                   marginLeft: "2px",
+
                 }}
                 placeholder=" Enterhistory"
               />
@@ -290,28 +302,36 @@ const AddStates = () => {
               <TextField
                 id="demo-helper-text-misaligned"
                 label="Enter Climate"
+                name="climate"
                 style={{ width: "100%", marginTop: "5px", maxWidth: "96%" }}
                 size="sm"
+                onChange={(e) => OnchangeEdit(e)}
               />
               <br />
               <TextField
                 id="demo-helper-text-misaligned"
                 label=" Enter time To Visit"
+                name="time"
+                onChange={(e) => OnchangeEdit(e)}
                 style={{ width: "100%", marginTop: "10px", maxWidth: "96%" }}
                 size="sm"
               />
               <br />
               <TextField
                 id="demo-helper-text-misaligned"
-                label="Enter Food   "
+                label="Enter Food"
+                name="food"
                 style={{ width: "100%", marginTop: "10px", maxWidth: "96%" }}
                 size="sm"
+                onChange={(e) => OnchangeEdit(e)}
               />
               <TextField
                 id="demo-helper-text-misaligned"
-                label="Enter Latitude   "
+                label="Enter Latitude"
                 style={{ marginTop: "10px" }}
                 size="sm"
+                name="lat"
+                onChange={(e) => OnchangeEdit(e)}
               />
               <TextField
                 id="demo-helper-text-misaligned"
@@ -322,6 +342,8 @@ const AddStates = () => {
                   width: "250px",
                 }}
                 size="sm"
+                name="long"
+                onChange={(e) => OnchangeEdit(e)}
               />
             </DialogContent>
             <DialogActions>
