@@ -43,6 +43,7 @@ const AddStates = () => {
     food: "",
   });
   const [editData, setEditdata] = useState({})
+  const [stateId, setStateId] = useState("")
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -78,13 +79,18 @@ const AddStates = () => {
     setAddState({ ...addState, [e.target.name]: e.target.value });
   };
   const OnSubmitState = (values) => {
-    console.log(values);
+    Axios.post('https://travellor-app.onrender.com/v1/state', values).then((response => console.log(response)))
+
   };
 
   const OnchangeEdit = async (e) => {
     setEditdata({ ...editData, [e.target.name]: e.target.value })
   }
-  console.log(editData)
+  const OnSubmitStateEdit = (values) => {
+    console.log(editData)
+    Axios.put(`https://travellor-app.onrender.com/v1/state/${stateId}`, editData).then((res) => console.log(res.data))
+  };
+
 
   return (
     <div>
@@ -354,7 +360,7 @@ const AddStates = () => {
               >
                 Close
               </Button>
-              <Button onClick={handleClose} variant="contained" color="success">
+              <Button onClick={() => { handleClose(); OnSubmitStateEdit() }} variant="contained" color="success">
                 Save
               </Button>
             </DialogActions>
@@ -388,9 +394,9 @@ const AddStates = () => {
                         {row.category == null ? "Not Located" : row.category}
                       </TableCell>
                       <TableCell>
-                        {row.lot & (row.long == null)
+                        {row.lat && row.long == null
                           ? "Missing"
-                          : row.lot & row.long}
+                          : row.lat && row.long}
                       </TableCell>
                       <TableCell>
                         <Button
@@ -398,7 +404,9 @@ const AddStates = () => {
                           endIcon={<EditIcon />}
                           onClick={(e) => {
                             console.log(row._id);
+                            setStateId(row._id)
                             handleClickOpen();
+                            OnSubmitStateEdit();
                           }}
                         >
                           Edit
