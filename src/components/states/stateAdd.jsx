@@ -123,7 +123,7 @@ const AddStates = () => {
                 style={{
                   width: "100%",
                   marginTop: "10px",
-                  maxWidth: "97%",
+                  // maxWidth: "97%",
                   marginLeft: "10px",
                 }}
                 label="Age"
@@ -394,9 +394,7 @@ const AddStates = () => {
                         {row.category == null ? "Not Located" : row.category}
                       </TableCell>
                       <TableCell>
-                        {row.lat && row.long == null
-                          ? "Missing"
-                          : row.lat && row.long}
+                        {!row.lat ? <p style={{ color: "red" }}>Missing</p> : <p style={{ color: "green" }}>{row.lat + " & " + row.long}</p>}
                       </TableCell>
                       <TableCell>
                         <Button
