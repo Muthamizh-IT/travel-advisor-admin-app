@@ -79,7 +79,7 @@ const Manage_Places = () => {
             </div>
             <div>
                 <h2 style={{ textAlign: "center", color: "orange" }}>Places</h2>
-                {!Loading ? <div className="table-places" style={{maxWidth:"60%", margin:"auto"}}>
+                {!Loading ? <div className="table-places" style={{ maxWidth: "60%", margin: "auto" }}>
                     <TableContainer component={Paper}>
                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
                             <TableHead>
@@ -97,14 +97,14 @@ const Manage_Places = () => {
                                     >
                                         <TableCell >{row.name}</TableCell>
                                         <TableCell >{row.State}</TableCell>
-                                        <TableCell >{row.topfive ? <Switch {...label} defaultChecked /> : <Switch {...label} />
+                                        <TableCell >{row.topfive ? <Switch {...label} defaultChecked value={row.topfive} onChange={(e) => console.log(e.target.value)} /> : <Switch {...label} value={row.topfive} onChange={(e) => console.log(e.target.value)} />
                                         }</TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
                         </Table>
                     </TableContainer></div> : <div style={{ marginLeft: "50%" }}><CircularProgress /> </div>}
-                <div className="pagination" style={{maxWidth:"60%", marginRight:"300px"}}>
+                <div className="pagination" style={{ maxWidth: "60%", marginRight: "300px" }}>
                     <Stack spacing={2}>
                         <Pagination count={totalPage} color="primary" onChange={(e, v) => { pageclick(v) }} />
                     </Stack>
