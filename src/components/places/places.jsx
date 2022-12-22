@@ -245,7 +245,7 @@ const Places = () => {
                                     </TableCell>
                                     <TableCell >{row.name}</TableCell>
                                     <TableCell >{row.State}</TableCell>
-                                    <TableCell >{row.lat ? <p style={{ color: "green" }}>{row.lat + " " + row.long}</p> : <p style={{ color: "red" }}>Misssing</p>}</TableCell>
+                                    <TableCell >{row.lat ? <p style={{ color: "green" }}>{row.lat + " & " + row.long}</p> : <p style={{ color: "red" }}>Misssing</p>}</TableCell>
                                     <TableCell > <Button variant="contained" endIcon={<EditIcon />} onClick={(e) => { setPlaceId(row._id); handleClickOpen() }}>
                                         Edit
                                     </Button></TableCell>
