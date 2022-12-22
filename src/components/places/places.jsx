@@ -22,6 +22,9 @@ const Places = () => {
     const [loading, setLoading] = useState(true)
     const [open, setOpen] = useState(false);
     const [totalPage, setTotalPage] = useState(0)
+    const [savePlace, setSavePlace] = useState({})
+    const [EditPlace, setEditPlace] = useState({})
+    const [placeId, setPlaceId] = useState("")
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -77,6 +80,25 @@ const Places = () => {
         fetchStates()
     }, [])
 
+    const OnchangeFun = async (e) => {
+        setSavePlace({ ...savePlace, [e.target.name]: e.target.value })
+    }
+    const OnSubmitSavePlace = async () => {
+        await Axios.post('https://travellor-app.onrender.com/v1/tourist', savePlace).then((e) => {
+            console.log(e.data)
+        })
+    }
+
+    const updateOneChange = async (e) => {
+        setEditPlace({ ...EditPlace, [e.target.name]: e.target.value })
+    }
+
+    const EditOnsubmit = async () => {
+        console.log(EditPlace)
+        await Axios.put(`https://travellor-app.onrender.com/v1/tourist/${placeId}`, EditPlace).then((e) => {
+            console.log(e.data)
+        })
+    }
 
     return (<div>
         <NavBar />
@@ -90,8 +112,8 @@ const Places = () => {
                                 <h2>Edit Places <EditIcon /></h2>
                                 <div className="form_edit">
 
-                                    <input type="text" placeholder="place Name" style={{ width: "350px", height: "39px" }} /><br></br>
-                                    <select style={{ width: "360px", height: "45px" }} onChange={(e) => { console.log(e.target.value) }}>
+                                    <input type="text" placeholder="place Name" style={{ width: "350px", height: "39px" }} name="name" onChange={(e) => { updateOneChange(e) }} /><br></br>
+                                    <select style={{ width: "360px", height: "45px" }} onChange={(e) => { updateOneChange(e) }} name="stateId" >
                                         <option value={"null"}>Select State</option>
                                         {
                                             state.map((e) => (
@@ -103,10 +125,10 @@ const Places = () => {
                                         Upload
                                         <input hidden accept="image/*" multiple type="file" />
                                     </Button><br></br>
-                                    <input type="text" placeholder="Info" style={{ width: "350px", height: "39px" }} /><br></br>
-                                    <input type="text" placeholder=" Enter Latitude" style={{ width: "350px", height: "39px" }} /><br></br>
-                                    <input type="text" placeholder=" Enter Longitude" style={{ width: "350px", height: "39px" }} /><br></br>
-                                    <Button variant="contained" style={{ marginTop: "10px", width: "200px", marginLeft: "70px", marginBottom: "10px" }} endIcon={<EditIcon />}>save</Button>
+                                    <input type="text" placeholder="Info" style={{ width: "350px", height: "39px" }} name="info" onChange={(e) => { updateOneChange(e) }} /><br></br>
+                                    <input type="text" placeholder=" Enter Latitude" style={{ width: "350px", height: "39px" }} name="lat" onChange={(e) => { updateOneChange(e) }} /><br></br>
+                                    <input type="text" placeholder=" Enter Longitude" style={{ width: "350px", height: "39px" }} name="long" onChange={(e) => { updateOneChange(e) }} /><br></br>
+                                    <Button variant="contained" onClick={() => { EditOnsubmit() }} style={{ marginTop: "10px", width: "200px", marginLeft: "70px", marginBottom: "10px" }} endIcon={<EditIcon />}>save</Button>
                                 </div>
 
                             </div>
@@ -133,6 +155,8 @@ const Places = () => {
                                     id="filled-hidden-label-small"
                                     variant="filled"
                                     size="small"
+                                    name="name"
+                                    onChange={(e) => { OnchangeFun(e) }}
                                     style={{ maxHeight: "20px", }}
                                 />
                                 <FormControl variant="filled" sx={{ minWidth: 215 }} style={{ marginLeft: "10px" }}>
@@ -142,7 +166,8 @@ const Places = () => {
                                         id="demo-simple-select-standard"
                                         label="Age"
                                         size="small"
-
+                                        name="stateId"
+                                        onChange={(e) => { OnchangeFun(e) }}
                                     >
                                         <MenuItem value="">
                                             <em>None</em>
@@ -158,26 +183,32 @@ const Places = () => {
                                     label="Enter place info"
                                     id="filled-hidden-label-small"
                                     variant="filled"
+                                    name="info"
                                     size="small"
                                     style={{ marginTop: "5px" }}
+                                    onChange={(e) => { OnchangeFun(e) }}
                                 />
                                 <Button variant="contained" component="label" style={{ marginLeft: "10px", marginTop: "5px", width: "216px", height: "45px" }} endIcon={<PhotoCameraBackIcon />}>
                                     choose image
                                     <input hidden accept="image/*" multiple type="file" />
                                 </Button><br />
                                 <TextField
-                                    label="Enter Longitude"
+                                    label="Enter Lattitude"
                                     id="filled-hidden-label-small"
                                     variant="filled"
                                     size="small"
+                                    name="lat"
                                     style={{ marginTop: "5px" }}
+                                    onChange={(e) => { OnchangeFun(e) }}
                                 />
                                 <TextField
                                     label="Enter Longitude"
                                     id="filled-hidden-label-small"
                                     variant="filled"
                                     size="small"
+                                    name="long"
                                     style={{ marginLeft: "10px", marginTop: "5px" }}
+                                    onChange={(e) => { OnchangeFun(e) }}
                                 />
                             </DialogContentText>
                         </DialogContent>
@@ -185,7 +216,7 @@ const Places = () => {
                             <Button autoFocus onClick={handleCloseadd} variant="contained" color="error">
                                 close
                             </Button>
-                            <Button onClick={handleCloseadd} autoFocus variant="contained" color="success">
+                            <Button onClick={() => { handleCloseadd(); OnSubmitSavePlace() }} autoFocus variant="contained" color="success">
                                 Add Place
                             </Button>
                         </DialogActions>
@@ -213,7 +244,7 @@ const Places = () => {
                                     </TableCell>
                                     <TableCell >{row.name}</TableCell>
                                     <TableCell >{row.State}</TableCell>
-                                    <TableCell > <Button variant="contained" endIcon={<EditIcon />} onClick={(e) => { console.log(row._id); handleClickOpen() }}>
+                                    <TableCell > <Button variant="contained" endIcon={<EditIcon />} onClick={(e) => { setPlaceId(row._id); handleClickOpen() }}>
                                         Edit
                                     </Button></TableCell>
                                 </TableRow>
