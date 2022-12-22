@@ -128,7 +128,7 @@ const Places = () => {
                                     <input type="text" placeholder="Info" style={{ width: "350px", height: "39px" }} name="info" onChange={(e) => { updateOneChange(e) }} /><br></br>
                                     <input type="text" placeholder=" Enter Latitude" style={{ width: "350px", height: "39px" }} name="lat" onChange={(e) => { updateOneChange(e) }} /><br></br>
                                     <input type="text" placeholder=" Enter Longitude" style={{ width: "350px", height: "39px" }} name="long" onChange={(e) => { updateOneChange(e) }} /><br></br>
-                                    <Button variant="contained" onClick={() => { EditOnsubmit() }} style={{ marginTop: "10px", width: "200px", marginLeft: "70px", marginBottom: "10px" }} endIcon={<EditIcon />}>save</Button>
+                                    <Button variant="contained" onClick={() => { EditOnsubmit(); handleClose() }} style={{ marginTop: "10px", width: "200px", marginLeft: "70px", marginBottom: "10px" }} endIcon={<EditIcon />}>save</Button>
                                 </div>
 
                             </div>
@@ -230,6 +230,7 @@ const Places = () => {
                                 <TableCell>S.No</TableCell>
                                 <TableCell >Place</TableCell>
                                 <TableCell >State</TableCell>
+                                <TableCell >Lattitude & Longitude</TableCell>
                                 <TableCell >Edite</TableCell>
                             </TableRow>
                         </TableHead>
@@ -244,6 +245,7 @@ const Places = () => {
                                     </TableCell>
                                     <TableCell >{row.name}</TableCell>
                                     <TableCell >{row.State}</TableCell>
+                                    <TableCell >{row.lat ? <p style={{ color: "green" }}>{row.lat + " " + row.long}</p> : <p style={{ color: "red" }}>Misssing</p>}</TableCell>
                                     <TableCell > <Button variant="contained" endIcon={<EditIcon />} onClick={(e) => { setPlaceId(row._id); handleClickOpen() }}>
                                         Edit
                                     </Button></TableCell>
